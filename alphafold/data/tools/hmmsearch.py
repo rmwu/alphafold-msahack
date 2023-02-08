@@ -61,8 +61,11 @@ class Hmmsearch(object):
     self.flags = flags
 
     if not os.path.exists(self.database_path):
-      logging.error('Could not find hmmsearch database %s', database_path)
-      raise ValueError(f'Could not find hmmsearch database {database_path}')
+      # >>>
+      pass
+      #logging.error('Could not find hmmsearch database %s', database_path)
+      #raise ValueError(f'Could not find hmmsearch database {database_path}')
+      # <<<
 
   @property
   def output_format(self) -> str:

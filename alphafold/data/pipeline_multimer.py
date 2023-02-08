@@ -216,13 +216,27 @@ class DataPipeline:
       # We only construct the pairing features if there are 2 or more unique
       # sequences.
       if not is_homomer_or_monomer:
-        all_seq_msa_features = self._all_seq_msa_features(chain_fasta_path,
-                                                          chain_msa_output_dir)
+        # >>>
+        #all_seq_msa_features = self._all_seq_msa_features(chain_fasta_path,
+        #chain_msa_output_dir)
+        all_seq_msa_features = self._all_seq_msa_features(chain_features)
+        # <<<
         chain_features.update(all_seq_msa_features)
     return chain_features
 
-  def _all_seq_msa_features(self, input_fasta_path, msa_output_dir):
+  # >>>
+  #def _all_seq_msa_features(self, input_fasta_path, msa_output_dir):
+  def _all_seq_msa_features(self, all_seq_features):
+    valid_feats = msa_pairing.MSA_FEATURES + (
+        'msa_species_identifiers',
+    )
+    feats = {f'{k}_all_seq': v for k, v in all_seq_features.items()
+             if k in valid_feats}
+    return feats
+    # <<<
     """Get MSA features for unclustered uniprot, for pairing."""
+    # NOTE: this is also single chain so I don't think we need it
+    # >>> fix this one and comment it out
     out_path = os.path.join(msa_output_dir, 'uniprot_hits.sto')
     result = pipeline.run_msa_tool(
         self._uniprot_msa_runner, input_fasta_path, out_path, 'sto',

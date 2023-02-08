@@ -52,9 +52,12 @@ class HHSearch:
     self.maxseq = maxseq
 
     for database_path in self.databases:
-      if not glob.glob(database_path + '_*'):
-        logging.error('Could not find HHsearch database %s', database_path)
-        raise ValueError(f'Could not find HHsearch database {database_path}')
+      # >>>
+      continue
+      #if not glob.glob(database_path + '_*'):
+      #  logging.error('Could not find HHsearch database %s', database_path)
+      #  raise ValueError(f'Could not find HHsearch database {database_path}')
+      # <<<
 
   @property
   def output_format(self) -> str:
